@@ -11,6 +11,7 @@ export class HomeComponent implements OnInit {
   constructor(private notificationService: NotificationsService) { }
 
   ngOnInit(): void {
+    this.notificationService.getAllNotifications();
     this.notificationService.socket$.subscribe((data) => {
       console.log(data);
     });

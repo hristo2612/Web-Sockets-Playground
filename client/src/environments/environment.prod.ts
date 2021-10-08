@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  host: 'web-sockets-playground.herokuapp.com'
 };

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { webSocket, WebSocketSubject } from "rxjs/webSocket";
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -7,14 +8,21 @@ import { webSocket, WebSocketSubject } from "rxjs/webSocket";
 export class NotificationsService {
 
   socket$: WebSocketSubject<any> = webSocket({
-    url: 'ws://localhost:3000/api',
-    deserializer: (e: MessageEvent) => JSON.parse(e.data),
-    openObserver: {
-      next: (e: Event) => console.log('open', e),
-      error: (e: Event) => console.log('error', e),
-      complete: () => console.log('complete')
-    }
+    url: `ws://${environment.host}/api`
   })
 
   constructor() { }
+
+  getAllNotifications() {
+    return this.socket$.next({
+      type: 'get-all-notifications',
+      body: 'Hey brother'
+    });
+  }
+
+  getLatestNotification() {
+
+  }
+
+
 }

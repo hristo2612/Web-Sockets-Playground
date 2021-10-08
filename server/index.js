@@ -10,7 +10,7 @@ const compression = require('compression');
 const expressWs = require('express-ws')(app);
 const webSocketCallback = require('./api/websocket').webSocketCallback;
 
-app.ws('/api', webSocketCallback);
+app.ws('/api', webSocketCallback(expressWs));
 
 const appMiddleware = [
   compression(),
