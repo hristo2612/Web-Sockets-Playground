@@ -1,5 +1,6 @@
 const path = require('path');
 const appPath = path.join(__dirname, 'client/dist/client');
+const port = process.env.PORT || 3000;
 
 // Server
 const express = require('express');
@@ -23,4 +24,4 @@ const appMiddleware = [
 
 app.use('/', appMiddleware);
 
-app.listen(3000);
+app.listen(port);
