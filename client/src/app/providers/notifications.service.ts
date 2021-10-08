@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 export class NotificationsService {
 
   socket$: WebSocketSubject<any> = webSocket({
-    url: `ws://${environment.host}/api`
+    url: `wss://${environment.host}/api`
   })
 
   constructor() { }
