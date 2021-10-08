@@ -16,7 +16,7 @@ export class NotificationsService {
   getAllNotifications() {
     return this.socket$.next({
       type: 'get-all-notifications',
-      body: 'Hey brother'
+      body: 'Hello World!'
     });
   }
 
