@@ -1,5 +1,5 @@
 const path = require('path');
-const appPath = path.join(__dirname, '..', 'client/dist/client');
+const appPath = path.join(__dirname, 'client/dist/client');
 
 // Server
 const express = require('express');
