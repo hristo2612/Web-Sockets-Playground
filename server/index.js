@@ -10,18 +10,17 @@ const compression = require('compression');
 const expressWs = require('express-ws')(app);
 const webSocketCallback = require('./api/websocket').webSocketCallback;
 
-app.use(compression());
-app.use(express.json());
-app.use(express.static(appPath));
-app.use((req, res) => {
-  res.sendFile(path.join(appPath, 'index.html'));
-});
+app.ws('/api', webSocketCallback);
 
-app.get('/', (req, res, next) => {
-  console.log('get route', req.testing);
-  res.end();
-});
+const appMiddleware = [
+  compression(),
+  express.json(),
+  express.static(appPath),
+  (req, res) => {
+    res.sendFile(path.join(appPath, 'index.html'));
+  }
+];
 
-app.ws('/', webSocketCallback);
+app.use('/', appMiddleware);
 
 app.listen(3000);
