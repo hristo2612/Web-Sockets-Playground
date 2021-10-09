@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NotificationsService } from 'src/app/providers/notifications.service';
+import { MessageService } from 'src/app/providers/messages.service';
 
 @Component({
   selector: 'app-home',
@@ -8,11 +8,11 @@ import { NotificationsService } from 'src/app/providers/notifications.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private notificationService: NotificationsService) { }
+  constructor(private msgService: MessageService) { }
 
   ngOnInit(): void {
-    this.notificationService.getAllNotifications();
-    this.notificationService.socket$.subscribe((data) => {
+    this.msgService.getAllNotifications();
+    this.msgService.socket$.subscribe((data) => {
       console.log(data);
     });
   }

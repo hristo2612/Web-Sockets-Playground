@@ -5,10 +5,10 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class NotificationsService {
+export class MessageService {
 
   socket$: WebSocketSubject<any> = webSocket({
-    url: `wss://${environment.host}/api`
+    url: environment.production ? `wss://${environment.host}/api` : `ws://${environment.host}/api`
   })
 
   constructor() { }
