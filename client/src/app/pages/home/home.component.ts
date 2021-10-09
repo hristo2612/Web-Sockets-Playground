@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MessageService } from 'src/app/providers/messages.service';
 
 @Component({
   selector: 'app-home',
@@ -8,13 +7,9 @@ import { MessageService } from 'src/app/providers/messages.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private msgService: MessageService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.msgService.getAllNotifications();
-    this.msgService.socket$.subscribe((data) => {
-      console.log(data);
-    });
   }
 
 }

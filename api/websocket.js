@@ -4,9 +4,10 @@ const webSocketCallback = (expressWs) => (ws, req) => {
     const allClients = expressWs.getWss().clients;
     allClients.forEach((client) => {
       if (client.readyState === client.OPEN) {
+        const data = JSON.parse(message).data;
         client.send(JSON.stringify({
-          msg: JSON.parse(message).body,
-          time: new Date().toISOString(),
+          text: data.text,
+          userName: data.userName,
         }));
       }
     });
