@@ -21,15 +21,15 @@ export class ChatBoardComponent implements OnInit {
   ngOnInit(): void {
     this.msgService.socket$.subscribe(
       (message: any) => {
-        let msg: any = {
-          type: 'text',
-          text: message.text,
-          name: message.userName,
-          reply: false,
-          avatar: 'https://i.gifer.com/6oa.gif'
+        if (message && message.length) {
+          const msgs = message.map((msg: any) => {
+            return this.msgService.constructMessageFromServer(msg, this.userName);
+          });
+          this.messages = [...msgs];
+        } else {
+          const msg = this.msgService.constructMessageFromServer(message, this.userName);
+          this.messages.push(msg);
         }
-        msg = message.userName === this.userName ? { ...msg, reply: true } : msg
-        this.messages.push(msg);
       }
     )
   }
