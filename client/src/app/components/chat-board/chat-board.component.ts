@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
 import { MessageService } from 'src/app/providers/messages.service';
+import { constructMessageFromServer } from 'src/app/utils/messages';
 import { uniqueNamesGenerator, adjectives, colors, animals } from 'unique-names-generator';
 
 @Component({
@@ -23,11 +23,11 @@ export class ChatBoardComponent implements OnInit {
       (message: any) => {
         if (message && message.length) {
           const msgs = message.map((msg: any) => {
-            return this.msgService.constructMessageFromServer(msg, this.userName);
+            return constructMessageFromServer(msg, this.userName);
           });
           this.messages = [...msgs];
         } else {
-          const msg = this.msgService.constructMessageFromServer(message, this.userName);
+          const msg = constructMessageFromServer(message, this.userName);
           this.messages.push(msg);
         }
       }
