@@ -1,17 +1,24 @@
-const webSocketCallback = (expressWs) => (ws, req) => {
+const { insertMessage, getMessages } = require('./mongodb');
+
+const webSocketCallback = (expressWs) => async (ws, req) => {
   ws.on('message', (message) => {
-    console.log(message);
+    insertMessage(JSON.parse(message).data);
     const allClients = expressWs.getWss().clients;
     allClients.forEach((client) => {
       if (client.readyState === client.OPEN) {
         const data = JSON.parse(message).data;
-        client.send(JSON.stringify({
+        const msg = JSON.stringify({
           text: data.text,
-          userName: data.userName,
-        }));
+          userName: data.userName
+        });
+        client.send(msg);
       }
     });
   });
+
+  const messages = await getMessages();
+  ws.send(JSON.stringify(messages));
+
 }
 
 exports.webSocketCallback = webSocketCallback;
